@@ -11,6 +11,11 @@ public static class StringExtensions
     private static readonly Regex TabOrWhiteSpaceRegex =
         new(@"(\s*\\\$tb(\d+)\s*)|(\s*\\\$ws(\d+)\s*)", RegexOptions.Compiled);
 
+    public static bool MatchWords(this string text, string word)
+    {
+        var tokens = text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim().ToLower());
+        return tokens.Any(t => word.Trim().ToLower().Contains(t.Trim()));
+    }
     public static string TabOrWhiteSpaceHandler(this string text,
         StringSplitOptions stringSplitOptions = StringSplitOptions.None)
     {
@@ -1129,7 +1134,7 @@ public static class StringExtensions
             if (unicodeCategory != UnicodeCategory.NonSpacingMark)
                 stringBuilder.Append(c);
             else
-                //اسامی مانند آفتاب نباید خراب شوند
+            //اسامی مانند آفتاب نباید خراب شوند
             if (c == 1619) //آ
                 stringBuilder.Append(c);
         }

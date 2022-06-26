@@ -4,6 +4,23 @@ namespace Beyond.Extensions.ObjectExtended;
 
 public static partial class ObjectExtensions
 {
+    public static bool WhereProperties<T>(this T instance, string search, StringComparison comparison = StringComparison.Ordinal) where T : class, new()
+    {
+        var props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        foreach (var prop in props)
+        {
+            if (prop.GetValue(instance, null) != null)
+            {
+                var status = prop.GetValue(instance, null)?.ToString()?.IndexOf(search, comparison) >= 0 == true;
+                if (status)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static bool Any<T>(this T obj, params T[] values)
     {
         return Array.IndexOf(values, obj) != -1;
