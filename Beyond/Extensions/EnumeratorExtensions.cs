@@ -29,4 +29,9 @@ public static class EnumeratorExtensions
     {
         for (var i = range.from; i < range.to; i += range.step) yield return i;
     }
+    public static IEnumerable<T> ToIEnumerable<T>(this IEnumerator<T> enumerator) {
+        while ( enumerator.MoveNext() ) {
+            yield return enumerator.Current;
+        }
+    }
 }
