@@ -73,11 +73,11 @@ internal class Base62Converter
         while ((count = source.Length) > 0)
         {
             var quotient = new List<int>();
-            int remainder = 0;
+            var remainder = 0;
             for (var i = 0; i != count; i++)
             {
-                int accumulator = source[i] + remainder * sourceBase;
-                int digit = accumulator / targetBase;
+                var accumulator = source[i] + remainder * sourceBase;
+                var digit = accumulator / targetBase;
                 remainder = accumulator % targetBase;
                 if (quotient.Count > 0 || digit > 0)
                 {

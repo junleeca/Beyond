@@ -118,4 +118,17 @@ public static class DirectoryUtility
 
         Directory.Delete(path, recursive);
     }
+
+    public static void CreateDirectoryRecursively(string path, char separator = '\\')
+    {
+        var pathParts = path.Split(separator);
+        for (var i = 0; i < pathParts.Length; i++)
+        {
+            if (i > 0)
+                pathParts[i] = Path.Combine(pathParts[i - 1], pathParts[i]);
+
+            if (!Directory.Exists(pathParts[i]))
+                Directory.CreateDirectory(pathParts[i]);
+        }
+    }
 }
